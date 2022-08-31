@@ -2,21 +2,80 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="OsuScheduleWearApp.MainPage"
-             Shell.NavBarIsVisible="False">
-			 
+             Shell.NavBarIsVisible="False"
+             Background="Black">
+
     <ScrollView>
+        
         <VerticalStackLayout 
-            Spacing="25" 
-            Padding="30,0" 
+            Spacing="5" 
+            Padding="10,0" 
             VerticalOptions="Center">
 
             <Label
-                Text="OsuScheduleWearApp"
+                TextColor="White"
+                Text="Системное программирование"
                 SemanticProperties.HeadingLevel="Level1"
-                FontSize="14"
-                HorizontalOptions="Center" />
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Center"
+                HorizontalOptions="Center"
+                LineBreakMode="WordWrap"
+                FontSize="18"/>
+
+            <Label
+                TextColor="White"
+                Text="(лек)"
+                FontSize="16"
+                HorizontalTextAlignment="Center" />
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <Label
+                    TextColor="White"
+                    Grid.Column="0"
+                    Text="05.09, пн"
+                    FontSize="14" 
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Start"
+                    HorizontalOptions="Start"/>
+
+                <Label
+                    TextColor="White"
+                    Grid.Column="1"
+                    Text="18:40 – 20:10"
+                    FontSize="14" 
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="End"
+                    HorizontalOptions="End"/>
+
+            </Grid>
+
+            <Label
+                TextColor="White"
+                Text="12-715"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"
+                VerticalOptions="Center" />
+
+            <Label
+                TextColor="White"
+                Text="До начала 6 дней"
+                FontSize="16"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"
+                VerticalOptions="Center" />
 
         </VerticalStackLayout>
+        
     </ScrollView>
  
 </ContentPage>
