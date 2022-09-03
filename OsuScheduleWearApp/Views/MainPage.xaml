@@ -1,86 +1,110 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="OsuScheduleWearApp.Views.MainPage"
-             xmlns:viewModels="clr-namespace:OsuScheduleWearApp.ViewModels"
-             Shell.NavBarIsVisible="False"
-             Background="#000018">
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="OsuScheduleWearApp.Views.MainPage"
+    xmlns:viewModels="clr-namespace:OsuScheduleWearApp.ViewModels"
+    xmlns:converters="clr-namespace:OsuScheduleWearApp.Converters"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    Shell.NavBarIsVisible="False"
+    Background="Black">
 
     <ContentPage.BindingContext>
         <viewModels:MainPageViewModel />
     </ContentPage.BindingContext>
-    
-    <ScrollView>
+
+    <ContentPage.Resources>
         
-        <VerticalStackLayout 
-            Spacing="5" 
-            Padding="10,0" 
-            VerticalOptions="Center">
+        <ResourceDictionary>
 
-            <Label
-                TextColor="White"
-                Text="{Binding Lesson.Name}"
-                SemanticProperties.HeadingLevel="Level1"
-                FontAttributes="Bold"
-                HorizontalTextAlignment="Center"
-                HorizontalOptions="Center"
-                LineBreakMode="WordWrap"
-                FontSize="18"/>
+            <toolkit:BoolToObjectConverter
+                x:Key="InverseBoolConverter"
+                TrueObject="False"
+                FalseObject="True" />
 
-            <Label
-                TextColor="White"
-                Text="{Binding Lesson.Type}"
-                FontSize="16"
-                HorizontalTextAlignment="Center" />
+            <converters:StringToDateTimeConverter
+                x:Key="StringToDateTimeConverter" />
 
-            <Grid>
+            <converters:LessonNumberToTimeConverter
+                x:Key="LessonNumberToTimeConverter" />
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                
-                <Label
-                    TextColor="White"
-                    Grid.Column="0"
-                    Text="05.09, пн"
-                    FontSize="14" 
-                    VerticalOptions="Center"
-                    VerticalTextAlignment="Center"
-                    HorizontalTextAlignment="Start"
-                    HorizontalOptions="Start"/>
+        </ResourceDictionary>
+        
+    </ContentPage.Resources>
+
+    <Grid>
+
+        <ActivityIndicator
+            Color="White"
+            IsRunning="{Binding UpdateScheduleCommand.IsRunning}" />
+
+        <ScrollView>
+
+            <VerticalStackLayout
+                Spacing="5"
+                Padding="10,0"
+                VerticalOptions="Center">
 
                 <Label
                     TextColor="White"
-                    Grid.Column="1"
-                    Text="18:40 – 20:10"
-                    FontSize="14" 
-                    VerticalOptions="Center"
+                    Text="{Binding Lesson.SubjectTitle}"
+                    SemanticProperties.HeadingLevel="Level1"
+                    FontAttributes="Bold"
+                    HorizontalTextAlignment="Center"
+                    HorizontalOptions="Center"
+                    LineBreakMode="WordWrap"
+                    FontSize="18" />
+
+                <Label
+                    TextColor="White"
+                    Text="{Binding Path=Lesson.LessonType, StringFormat='({0})'}"
+                    FontSize="16"
+                    HorizontalTextAlignment="Center" />
+
+                <Label
+                    TextColor="White"
+                    Text="{Binding Lesson.Classroom}"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    HorizontalTextAlignment="Center"
                     VerticalTextAlignment="Center"
-                    HorizontalTextAlignment="End"
-                    HorizontalOptions="End"/>
+                    VerticalOptions="Center" />
 
-            </Grid>
+                <Grid>
 
-            <Label
-                TextColor="White"
-                Text="{Binding Classroom}"
-                FontAttributes="Bold"
-                FontSize="20"
-                HorizontalTextAlignment="Center"
-                VerticalTextAlignment="Center"
-                VerticalOptions="Center" />
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+                            Width="*" />
+                        <ColumnDefinition
+                            Width="*" />
+                    </Grid.ColumnDefinitions>
 
-            <Label
-                TextColor="White"
-                Text="До начала 6 дней"
-                FontSize="16"
-                HorizontalTextAlignment="Center"
-                VerticalTextAlignment="Center"
-                VerticalOptions="Center" />
+                    <Label
+                        TextColor="White"
+                        Grid.Column="0"
+                        Text="{Binding Path=Lesson.Date, Converter={StaticResource StringToDateTimeConverter}, StringFormat='{0:MM.dd, ddd}'}"
+                        FontSize="14"
+                        VerticalOptions="Center"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Start"
+                        HorizontalOptions="Start" />
 
-        </VerticalStackLayout>
-        
-    </ScrollView>
- 
+                    <Label
+                        TextColor="White"
+                        Grid.Column="1"
+                        Text="{Binding Path=Lesson.Number, Converter={StaticResource LessonNumberToTimeConverter}}"
+                        FontSize="14"
+                        VerticalOptions="Center"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="End"
+                        HorizontalOptions="End" />
+
+                </Grid>
+
+            </VerticalStackLayout>
+
+        </ScrollView>
+
+    </Grid>
+
 </ContentPage>
