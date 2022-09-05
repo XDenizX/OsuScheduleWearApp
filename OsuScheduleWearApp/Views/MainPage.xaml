@@ -60,12 +60,22 @@
 
                 <Label
                     TextColor="White"
-                    Text="{Binding Lesson.Classroom}"
                     FontAttributes="Bold"
-                    FontSize="20"
+                    FontSize="24"
                     HorizontalTextAlignment="Center"
                     VerticalTextAlignment="Center"
-                    VerticalOptions="Center" />
+                    VerticalOptions="Center">
+
+                    <Label.Text>
+                        <MultiBinding StringFormat="{}{0}-{1}">
+                            <Binding
+                                Path="Lesson.BuildingNumber" />
+                            <Binding
+                                Path="Lesson.Classroom"/>
+                        </MultiBinding>
+                    </Label.Text>
+                    
+                </Label>
 
                 <Grid>
 
@@ -80,7 +90,7 @@
                         TextColor="White"
                         Grid.Column="0"
                         Text="{Binding Path=Lesson.Date, Converter={StaticResource StringToDateTimeConverter}, StringFormat='{0:MM.dd, ddd}'}"
-                        FontSize="14"
+                        FontSize="18"
                         VerticalOptions="Center"
                         VerticalTextAlignment="Center"
                         HorizontalTextAlignment="Start"
@@ -90,7 +100,7 @@
                         TextColor="White"
                         Grid.Column="1"
                         Text="{Binding Path=Lesson.Number, Converter={StaticResource LessonNumberToTimeConverter}}"
-                        FontSize="14"
+                        FontSize="18"
                         VerticalOptions="Center"
                         VerticalTextAlignment="Center"
                         HorizontalTextAlignment="End"
