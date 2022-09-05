@@ -22,14 +22,11 @@ public class ScheduleService
     public Lesson GetActualLesson()
     {
         return _schedule.Lessons
-            .GroupBy(lesson => lesson.Date)
-            .Where(lessonGroup => DateTime.Parse(lessonGroup.Key) >= DateTime.Now.Date)
-            .OrderBy(lessonsGroup => lessonsGroup.Key)
-            .FirstOrDefault()
+            .OrderBy(lesson => DateTime.Parse(lesson.Date) + LessonTimeHelper.GetStartTime(lesson.Number))
             .Where(lesson =>
-                DateTime.Now.TimeOfDay < LessonTimeHelper.GetStartTime(lesson.Number) 
+                DateTime.Now < DateTime.Parse(lesson.Date)
+                + LessonTimeHelper.GetStartTime(lesson.Number)
                 + LessonTimeHelper.LessonDuration / 2)
-            .OrderBy(lesson => lesson.Number)
             .FirstOrDefault();
     }
 
