@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using OrelStateUniversity.API;
 using OrelStateUniversity.API.Models;
 using OsuScheduleWearApp.Helpers;
@@ -14,7 +15,7 @@ public class ScheduleService
     public delegate void ScheduleUpdatedHandler(Schedule updatedSchedule);
     public event ScheduleUpdatedHandler ScheduleUpdated;
 
-    public ScheduleService(IOptions<PersonSettings> options)
+    public ScheduleService(IOptions<PersonOptions> options)
     {
         
     }
@@ -22,7 +23,9 @@ public class ScheduleService
     public Lesson GetActualLesson()
     {
         return _schedule.Lessons
-            .OrderBy(lesson => DateTime.Parse(lesson.Date) + LessonTimeHelper.GetStartTime(lesson.Number))
+            .OrderBy(lesson => 
+                DateTime.Parse(lesson.Date) 
+                + LessonTimeHelper.GetStartTime(lesson.Number))
             .Where(lesson =>
                 DateTime.Now < DateTime.Parse(lesson.Date)
                 + LessonTimeHelper.GetStartTime(lesson.Number)
