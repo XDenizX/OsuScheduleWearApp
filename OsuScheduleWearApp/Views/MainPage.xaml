@@ -7,14 +7,11 @@
     xmlns:converters="clr-namespace:OsuScheduleWearApp.Converters"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     Shell.NavBarIsVisible="False"
+    Shell.FlyoutBehavior="Disabled"
     Background="Black">
 
-    <ContentPage.BindingContext>
-        <viewModels:MainPageViewModel />
-    </ContentPage.BindingContext>
-
     <ContentPage.Resources>
-        
+
         <ResourceDictionary>
 
             <toolkit:BoolToObjectConverter
@@ -29,7 +26,7 @@
                 x:Key="LessonNumberToTimeConverter" />
 
         </ResourceDictionary>
-        
+
     </ContentPage.Resources>
 
     <Grid>

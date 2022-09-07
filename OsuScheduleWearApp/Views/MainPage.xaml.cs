@@ -1,9 +1,13 @@
-﻿namespace OsuScheduleWearApp.Views;
+﻿using OsuScheduleWearApp.ViewModels;
+
+namespace OsuScheduleWearApp.Views;
 
 public partial class MainPage : ContentPage
 {
-	public MainPage()
+	public MainPage(MainPageViewModel viewModel)
 	{
+		BindingContext = viewModel;
+
 		InitializeComponent();
 	}
 }

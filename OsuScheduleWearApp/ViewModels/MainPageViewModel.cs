@@ -1,48 +1,30 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using OrelStateUniversity.API;
 using OrelStateUniversity.API.Models;
+using OsuScheduleWearApp.Services;
 
 namespace OsuScheduleWearApp.ViewModels;
 
-partial class MainPageViewModel : ObservableObject
+public partial class MainPageViewModel : ObservableObject
 {
-    [ObservableProperty]
-    private Schedule _schedule;
-
-    partial void OnScheduleChanged(Schedule value)
-    {
-        Lesson = GetActualLesson(value);
-    }
+    private readonly ScheduleService _scheduleService;
 
     [ObservableProperty]
     private Lesson _lesson;
 
-    [ObservableProperty]
-    private AsyncRelayCommand _updateScheduleCommand;
+    [RelayCommand]
+    async Task UpdateSchedule() => await _scheduleService.UpdateScheduleAsync();
 
-    private readonly ScheduleApiClient _client;
-
-    public MainPageViewModel()
+    public MainPageViewModel(ScheduleService scheduleService)
     {
-        _client = new ScheduleApiClient();
+        _scheduleService = scheduleService;
+        _scheduleService.ScheduleUpdated += OnScheduleChanged;
 
-        UpdateScheduleCommand = new AsyncRelayCommand(UpdateScheduleAsync);
         UpdateScheduleCommand.Execute(this);
     }
 
-    private Lesson GetActualLesson(Schedule schedule)
+    private void OnScheduleChanged(Schedule value)
     {
-        return schedule.Lessons
-            .GroupBy(lesson => lesson.Date)
-            .OrderBy(lessonsGroup => lessonsGroup.Key)
-            .FirstOrDefault()
-            .OrderBy(lesson => lesson.Number)
-            .FirstOrDefault();
-    }
-
-    private async Task UpdateScheduleAsync()
-    {
-        Schedule = await _client.GetScheduleAsync(8379);
+        Lesson = _scheduleService.GetActualLesson();
     }
 }
