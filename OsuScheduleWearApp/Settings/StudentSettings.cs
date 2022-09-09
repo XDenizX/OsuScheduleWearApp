@@ -1,6 +1,6 @@
 ﻿namespace OsuScheduleWearApp.Settings;
 
-public class PersonOptions
+public class StudentSettings
 {
     public bool IsStudent { get; set; }
 }
