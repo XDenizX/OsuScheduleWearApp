@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="OsuScheduleWearApp.Views.SettingsPage"
+    Title="SettingsPage">
+
+    <StackLayout
+        VerticalOptions="Center">
+
+        <Picker
+            ItemsSource="{Binding Divisions}"
+            ItemDisplayBinding="{Binding ShortTitle}"
+            SelectedItem="{Binding SelectedDivision}"
+            HorizontalOptions="Center"
+            Title="Институт"
+            HorizontalTextAlignment="Center"
+            SelectedIndexChanged="Picker_SelectedIndexChanged"/>
+
+        <Picker
+            ItemsSource="{Binding Courses}"
+            ItemDisplayBinding="{Binding Number}"
+            SelectedItem="{Binding SelectedCourse}"
+            HorizontalOptions="Center"
+            Title="Курс"
+            HorizontalTextAlignment="Center"
+            SelectedIndexChanged="Picker_SelectedIndexChanged_1"/>
+
+        <Picker
+            ItemsSource="{Binding Groups}"
+            ItemDisplayBinding="{Binding Title}"
+            SelectedItem="{Binding SelectedGroup}"
+            HorizontalOptions="Center"
+            HorizontalTextAlignment="Center"
+            Title="Группа" />
+
+    </StackLayout>
+
+</ContentPage>

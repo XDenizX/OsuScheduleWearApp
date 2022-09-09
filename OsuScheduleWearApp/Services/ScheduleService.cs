@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using OrelStateUniversity.API;
 using OrelStateUniversity.API.Models;
 using OsuScheduleWearApp.Helpers;
@@ -9,15 +8,17 @@ namespace OsuScheduleWearApp.Services;
 
 public class ScheduleService
 {
-    private readonly ScheduleApiClient _client = new();
+    private readonly ScheduleApiClient _client;
     private Schedule _schedule;
 
     public delegate void ScheduleUpdatedHandler(Schedule updatedSchedule);
     public event ScheduleUpdatedHandler ScheduleUpdated;
 
-    public ScheduleService(IOptions<PersonOptions> options)
+    public ScheduleService(
+        IOptions<StudentSettings> options,
+        ScheduleApiClient client)
     {
-        
+        _client = client;
     }
 
     public Lesson GetActualLesson()
