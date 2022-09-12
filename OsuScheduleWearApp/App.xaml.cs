@@ -7,13 +7,13 @@ public partial class App : Application
 {
 	private readonly ScheduleService _scheduleService;
 
-	public App(MainPage mainPage, ScheduleService scheduleService)
+	public App()
 	{
 		InitializeComponent();
 
-		_scheduleService = scheduleService;
-		MainPage = mainPage;
-	}
+		_scheduleService = DependencyService.Get<ScheduleService>();
+		MainPage = new AppShell();
+    }
 
 	protected override void OnResume()
 	{

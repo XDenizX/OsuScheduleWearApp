@@ -15,9 +15,9 @@ public partial class MainPageViewModel : ObservableObject
     [RelayCommand]
     async Task UpdateSchedule() => await _scheduleService.UpdateScheduleAsync();
 
-    public MainPageViewModel(ScheduleService scheduleService)
+    public MainPageViewModel()
     {
-        _scheduleService = scheduleService;
+        _scheduleService = DependencyService.Get<ScheduleService>();
         _scheduleService.ScheduleUpdated += OnScheduleChanged;
 
         UpdateScheduleCommand.Execute(this);

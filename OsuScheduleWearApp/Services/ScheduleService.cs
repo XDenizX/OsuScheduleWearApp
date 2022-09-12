@@ -2,8 +2,10 @@
 using OrelStateUniversity.API;
 using OrelStateUniversity.API.Models;
 using OsuScheduleWearApp.Helpers;
+using OsuScheduleWearApp.Services;
 using OsuScheduleWearApp.Settings;
 
+[assembly: Dependency(typeof(ScheduleService))]
 namespace OsuScheduleWearApp.Services;
 
 public class ScheduleService
@@ -14,9 +16,7 @@ public class ScheduleService
     public delegate void ScheduleUpdatedHandler(Schedule updatedSchedule);
     public event ScheduleUpdatedHandler ScheduleUpdated;
 
-    public ScheduleService(
-        IOptions<StudentSettings> options,
-        ScheduleApiClient client)
+    public ScheduleService(ScheduleApiClient client)
     {
         _client = client;
     }

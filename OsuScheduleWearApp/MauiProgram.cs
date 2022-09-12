@@ -2,8 +2,6 @@
 using CommunityToolkit.Maui.Core;
 using OrelStateUniversity.API;
 using OsuScheduleWearApp.Services;
-using OsuScheduleWearApp.ViewModels;
-using OsuScheduleWearApp.Views;
 
 namespace OsuScheduleWearApp;
 
@@ -22,15 +20,10 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-		builder.Services
-			.AddOptions()
-			.AddSingleton<MainPage>()
-			.AddSingleton<SettingsPage>()
-			.AddTransient<SettingsPageViewModel>()
-			.AddTransient<MainPageViewModel>()
-			.AddSingleton<ScheduleApiClient>()
-			.AddSingleton<ScheduleService>();
+		var client = new ScheduleApiClient();
 
+        DependencyService.RegisterSingleton(client);
+        DependencyService.RegisterSingleton(new ScheduleService(client));
 
         return builder.Build();
 	}

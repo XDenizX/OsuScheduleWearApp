@@ -33,7 +33,7 @@ public partial class SettingsPageViewModel : ObservableObject
         Divisions = await _client.GetStudentDivisionsAsync();
     }
 
-    [RelayCommand(CanExecute = nameof(CanLoadCourses))]
+    [RelayCommand]
     private async Task LoadCourses()
     {
         Courses = Enumerable.Empty<Course>();
@@ -44,11 +44,6 @@ public partial class SettingsPageViewModel : ObservableObject
         }
 
         Courses = await _client.GetCoursesAsync(SelectedDivision.Id);
-    }
-
-    private bool CanLoadCourses()
-    {
-        return Divisions.Any() && SelectedDivision != null;
     }
 
     [RelayCommand]
@@ -69,10 +64,10 @@ public partial class SettingsPageViewModel : ObservableObject
         Groups = await _client.GetGroupsAsync(SelectedDivision.Id, SelectedCourse.Number);
     }
 
-    public SettingsPageViewModel(ScheduleApiClient client)
+    public SettingsPageViewModel()
     {
-        _client = client;
-
+        _client = DependencyService.Get<ScheduleApiClient>();
+        
         LoadDivisionsCommand.Execute(this);
     }
 }
