@@ -4,12 +4,13 @@ namespace OsuScheduleWearApp.Views;
 
 public partial class SettingsPage : ContentPage
 {
-	private readonly SettingsPageViewModel _viewModel;
-	public SettingsPage(SettingsPageViewModel viewModel)
+	public SettingsPageViewModel _viewModel;
+
+	public SettingsPage()
 	{
 		InitializeComponent();
 
-		BindingContext = _viewModel = viewModel;
+		_viewModel = BindingContext as SettingsPageViewModel;
 	}
 
 	private void Picker_SelectedIndexChanged(object sender, EventArgs e)
@@ -20,5 +21,10 @@ public partial class SettingsPage : ContentPage
 	private void Picker_SelectedIndexChanged_1(object sender, EventArgs e)
 	{
         _viewModel.LoadGroupsCommand.Execute(this);
+    }
+
+	private async void Picker_SelectedIndexChanged_2(object sender, EventArgs e)
+	{
+		await Shell.Current.GoToAsync(new ShellNavigationState($"///schedule"));
     }
 }

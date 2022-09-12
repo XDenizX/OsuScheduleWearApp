@@ -2,9 +2,14 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:OsuScheduleWearApp.ViewModels"
     x:Class="OsuScheduleWearApp.Views.SettingsPage"
     Title="SettingsPage">
 
+    <ContentPage.BindingContext>
+        <viewModels:SettingsPageViewModel />
+    </ContentPage.BindingContext>
+    
     <StackLayout
         VerticalOptions="Center">
 
@@ -32,7 +37,8 @@
             SelectedItem="{Binding SelectedGroup}"
             HorizontalOptions="Center"
             HorizontalTextAlignment="Center"
-            Title="Группа" />
+            Title="Группа" 
+            SelectedIndexChanged="Picker_SelectedIndexChanged_2"/>
 
     </StackLayout>
 
