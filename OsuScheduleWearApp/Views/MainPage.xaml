@@ -10,6 +10,10 @@
     Shell.FlyoutBehavior="Disabled"
     Background="Black">
 
+    <ContentPage.BindingContext>
+        <viewModels:MainPageViewModel />
+    </ContentPage.BindingContext>
+    
     <ContentPage.Resources>
 
         <ResourceDictionary>
@@ -61,17 +65,18 @@
                 <Label
                     TextColor="White"
                     FontAttributes="Bold"
-                    FontSize="24"
+                    FontSize="18"
                     HorizontalTextAlignment="Center"
                     VerticalTextAlignment="Center"
                     VerticalOptions="Center">
 
                     <Label.Text>
-                        <MultiBinding StringFormat="{}{0}-{1}">
+                        <MultiBinding 
+                            StringFormat="{}{0}-{1}">
                             <Binding
                                 Path="Lesson.BuildingNumber" />
                             <Binding
-                                Path="Lesson.Classroom"/>
+                                Path="Lesson.Classroom" />
                         </MultiBinding>
                     </Label.Text>
                     
@@ -90,7 +95,7 @@
                         TextColor="White"
                         Grid.Column="0"
                         Text="{Binding Path=Lesson.Date, Converter={StaticResource StringToDateTimeConverter}, StringFormat='{0:MM.dd, ddd}'}"
-                        FontSize="18"
+                        FontAutoScalingEnabled="True"
                         VerticalOptions="Center"
                         VerticalTextAlignment="Center"
                         HorizontalTextAlignment="Start"
@@ -100,7 +105,7 @@
                         TextColor="White"
                         Grid.Column="1"
                         Text="{Binding Path=Lesson.Number, Converter={StaticResource LessonNumberToTimeConverter}}"
-                        FontSize="18"
+                        FontAutoScalingEnabled="True"
                         VerticalOptions="Center"
                         VerticalTextAlignment="Center"
                         HorizontalTextAlignment="End"
